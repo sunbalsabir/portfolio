@@ -80,12 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Sunbal Sabir — QA Engineer" },
       { name: "description", content: "Portfolio of Sunbal Sabir, QA Engineer" },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "Sunbal Sabir" },
+      { name: "theme-color", content: "#f2f7fc" },
       { property: "og:title", content: "Sunbal Sabir — QA Engineer" },
       { property: "og:description", content: "Portfolio of Sunbal Sabir, QA Engineer" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Sunbal Sabir" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -93,11 +94,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Unbounded:wght@700;900&family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    // Light by default; a saved "dark" preference wins. Runs before first paint to avoid a flash.
+    scripts: [
+      {
+        children:
+          "(function(){try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}})()",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -108,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
